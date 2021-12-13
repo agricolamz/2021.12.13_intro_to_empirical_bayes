@@ -1,0 +1,47 @@
+---
+title: "Intro to Empirical Bayes Estimation"
+subtitle: "part of the course 'An introduction to data science for the study of language' by D. E. Blasi"
+author: "G. Moroz"
+date: "13th of December 2021<br>see materials at tinyurl.com/..."
+output: html_document
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning = FALSE)
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+## Data
+
+Empirical Bayes estimation -- is one of the methods where:
+
+* prior knowledge is estimated based on the whole dataset;
+* prior knowledge is used for updating individual groups within the dataset.
+
+Let's work with data from [@daniel19], where 
+
+```{r}
+mikhalevskaja <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/ustya_data.csv")
+
+library(tidytext)
+
+mikhalevskaja %>% 
+  mutate(ratio = conservative/total,
+         speaker = reorder_within(speaker, ratio, feature)) %>% 
+  ggplot(aes(ratio, speaker, color = gender))+
+  geom_point()+
+  facet_wrap(~feature, scales = "free")+
+  scale_y_reordered()
+mikhalevskaja %>% 
+  filter(feature == "a-e") %>% 
+  mutate(ratio = conservative/total) %>% 
+  write_csv("data/mikhalevskoje_a_e.csv")
+  arrange(desc(ratio))
+```
+
+Не очень легко это анализировать... Давайте выберем один признак -- подъем a: консервативными считались формы [ꞌpʲetʲero], а инновативной -- реализация [ꞌpʲatʲərə]. Посчитаем долю и отсортируем:
+
+
+## References

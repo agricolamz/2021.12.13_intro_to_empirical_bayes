@@ -13,6 +13,15 @@ library(tidyverse)
 theme_set(theme_bw()+theme(text = element_text(size = 20)))
 ```
 
+Packages:
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(ggrepel)
+library(fitdistrplus)
+```
+
+
 ## Data
 
 Empirical Bayes estimation -- is one of the methods where:
